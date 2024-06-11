@@ -1,6 +1,6 @@
 @if (resource$ | async; as resource) {
   @if (person || starShip) {
-    <mat-card class="info-card" [ngClass]="{ 'win-status': isWin }">
+    <mat-card class="info-card {{ status }}">
       <mat-card-header>
         <mat-card-subtitle>
           {{ person?.name || starShip?.name }}

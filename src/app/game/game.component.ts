@@ -16,6 +16,7 @@ import {
 import { CookieService } from 'ngx-cookie-service';
 
 import {
+  CompareStatus,
   GameStep,
   LEFT_WINS_KEY,
   PersonInfo,
@@ -49,8 +50,8 @@ export class GameComponent {
 
   leftWinsCount: number = +this.cookieService.get(LEFT_WINS_KEY) || 0;
   rightWinsCount: number = +this.cookieService.get(RIGHT_WINS_KEY) || 0;
-  rightWins = false;
-  leftWins = false;
+  leftStatus = CompareStatus.DRAW;
+  rightStatus = CompareStatus.DRAW;
 
   resourceType$ = this.resourceService.currentResource;
   fetchCards$ = new Subject<void>();
@@ -90,16 +91,18 @@ export class GameComponent {
   compareCards(leftValue: string, rightValue: string) {
     const left = Number.parseInt(leftValue);
     const right = Number.parseInt(rightValue);
-    this.leftWins = false;
-    this.rightWins = false;
+    this.leftStatus = CompareStatus.DRAW;
+    this.rightStatus = CompareStatus.DRAW;
 
     if (left > right) {
       this.leftWinsCount++;
-      this.leftWins = true;
+      this.leftStatus = CompareStatus.WIN;
+      this.rightStatus = CompareStatus.LOST;
     }
     if (right > left) {
       this.rightWinsCount++;
-      this.rightWins = true;
+      this.rightStatus = CompareStatus.WIN;
+      this.leftStatus = CompareStatus.LOST;
     }
 
     this.cookieService.set(LEFT_WINS_KEY, `${this.leftWinsCount}`);

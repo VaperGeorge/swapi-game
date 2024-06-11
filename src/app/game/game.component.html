@@ -10,11 +10,17 @@
     <mat-card-content>
       <div class="cards-container">
         <div class="cards-container__left">
-          <app-info-card [data]="result[0]" [isWin]="leftWins"></app-info-card>
+          <app-info-card
+            [data]="result[0]"
+            [status]="leftStatus"
+          ></app-info-card>
           <p>Left Wins: {{ leftWinsCount }}</p>
         </div>
         <div class="cards-container__right">
-          <app-info-card [data]="result[1]" [isWin]="rightWins"></app-info-card>
+          <app-info-card
+            [data]="result[1]"
+            [status]="rightStatus"
+          ></app-info-card>
           <p>Right Wins: {{ rightWinsCount }}</p>
         </div>
       </div>

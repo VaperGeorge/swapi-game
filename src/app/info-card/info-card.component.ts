@@ -7,7 +7,13 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import { AsyncPipe, NgClass, TitleCasePipe } from '@angular/common';
 
-import { PersonInfo, Resource, ResourceService, StarShip } from '../../shared';
+import {
+  CompareStatus,
+  PersonInfo,
+  Resource,
+  ResourceService,
+  StarShip,
+} from '../../shared';
 
 @Component({
   selector: 'app-info-card',
@@ -26,7 +32,7 @@ export class InfoCardComponent {
       : (this.starShip = value as StarShip);
   }
 
-  @Input() isWin = false;
+  @Input() status: CompareStatus = CompareStatus.DRAW;
 
   resource$ = this.resourceService.currentResource;
 
