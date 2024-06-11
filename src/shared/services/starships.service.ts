@@ -22,9 +22,14 @@ export class StarShipsService {
   }
 
   getStarShips(): Observable<ResourceListItem[]> {
-    return this.http.get<ResourceListResponse>(`${API_URL}/starships`).pipe(
-      tap((response) => (this.starShips = response.results)),
-      map((response) => response.results),
+    const stream$ = this.starShips$.value?.length
+      ? this.starShips$
+      : this.http.get<ResourceListResponse>(`${API_URL}/starships`).pipe(
+          tap((response) => (this.starShips = response.results)),
+          map((response) => response.results),
+        );
+
+    return stream$.pipe(
       catchError((error) => {
         console.error(error);
         return EMPTY;
