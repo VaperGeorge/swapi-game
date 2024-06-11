@@ -1,1 +1,39 @@
-<p>game works!</p>
+<mat-card class="game-card">
+  @if (loading$ | async) {
+    <ng-container *ngTemplateOutlet="loadingState"></ng-container>
+  }
+  @if (result$ | async; as result) {
+    <mat-card-header>
+      <mat-card-title>Game result</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="cards-container">
+        <div class="cards-container__left">
+          <app-info-card [data]="result[0]" [isWin]="leftWins"></app-info-card>
+          <p>Left Wins: {{ leftWinsCount }}</p>
+        </div>
+        <div class="cards-container__right">
+          <app-info-card [data]="result[1]" [isWin]="rightWins"></app-info-card>
+          <p>Right Wins: {{ rightWinsCount }}</p>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="game-card__actions">
+      <button mat-flat-button color="primary" (click)="goToStart()">
+        GO TO START
+      </button>
+      <button mat-flat-button color="primary" (click)="fetchRandomCards()">
+        PLAY AGAIN
+      </button>
+    </mat-card-actions>
+  } @else {
+    <ng-container *ngTemplateOutlet="loadingState"></ng-container>
+  }
+</mat-card>
+<ng-template #loadingState>
+  <div class="loading-state">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

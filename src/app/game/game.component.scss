@@ -1,0 +1,35 @@
+.cards-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 25px;
+
+  &__left {
+    flex: 1;
+  }
+  &__right {
+    flex: 1;
+  }
+}
+
+.game-card {
+  overflow: hidden;
+  min-width: 600px;
+
+  &__actions {
+    justify-content: space-evenly;
+  }
+}
+
+.loading-state {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9;
+  background-color: rgba($color: #fff, $alpha: 0.97);
+}
