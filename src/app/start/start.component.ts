@@ -1,4 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
@@ -11,13 +16,14 @@ import { GameStep, StepService } from '../../shared';
   imports: [MatButtonModule, MatIconModule],
   templateUrl: './start.component.html',
   styleUrl: './start.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StartComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly stepService = inject(StepService);
 
   ngOnInit(): void {
-    this.stepService.currentStep = GameStep.START;
+    this.stepService.clearValues();
   }
 
   nextStep() {
