@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
 import {
   BehaviorSubject,
   Subject,
-  forkJoin,
-  mergeMap,
+  combineLatest,
   startWith,
+  switchMap,
   tap,
 } from 'rxjs';
 
@@ -69,8 +69,8 @@ export class GameComponent {
   result$ = this.fetchCards$.pipe(
     tap(() => this.loading$.next(true)),
     startWith(null),
-    mergeMap(() =>
-      forkJoin([this.leftCard$, this.rightCard$]).pipe(
+    switchMap(() =>
+      combineLatest([this.leftCard$, this.rightCard$]).pipe(
         tap(([leftCard, rightCard]) => {
           if (this.resourceType$.value === Resource.PEOPLE) {
             const { mass: leftMass } = leftCard as PersonInfo;

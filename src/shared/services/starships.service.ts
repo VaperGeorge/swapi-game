@@ -1,5 +1,13 @@
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, EMPTY, Observable, catchError, map, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  EMPTY,
+  Observable,
+  catchError,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { ResourceListItem, ResourceListResponse } from '../interfaces';
@@ -22,14 +30,15 @@ export class StarShipsService {
   }
 
   getStarShips(): Observable<ResourceListItem[]> {
-    const stream$ = this.starShips$.value?.length
-      ? this.starShips$
-      : this.http.get<ResourceListResponse>(`${API_URL}/starships`).pipe(
-          tap((response) => (this.starShips = response.results)),
-          map((response) => response.results),
-        );
-
-    return stream$.pipe(
+    return this.starShips$.pipe(
+      switchMap((starShips) =>
+        starShips?.length
+          ? this.starShips$.asObservable()
+          : this.http.get<ResourceListResponse>(`${API_URL}/starships`).pipe(
+              tap((response) => this.starShips$.next(response.results)),
+              map((response) => response.results),
+            ),
+      ),
       catchError((error) => {
         console.error(error);
         return EMPTY;

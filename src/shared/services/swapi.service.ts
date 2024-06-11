@@ -20,8 +20,6 @@ export class SwapiService {
   private readonly starShipsService = inject(StarShipsService);
 
   getRandomPerson(): Observable<PersonInfo> {
-    console.log('TEST 2');
-
     return this.personsService.getPersons().pipe(
       switchMap((people) => {
         const randomPerson = people[this.getRandomNumber(people)];
@@ -36,8 +34,6 @@ export class SwapiService {
   }
 
   getRandomStarship(): Observable<StarShip> {
-    console.log('TEST 2');
-
     return this.starShipsService.getStarShips().pipe(
       switchMap((starships) => {
         const randomStarship = starships[this.getRandomNumber(starships)];

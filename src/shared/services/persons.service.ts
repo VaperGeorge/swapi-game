@@ -1,5 +1,14 @@
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, EMPTY, Observable, catchError, map, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  EMPTY,
+  Observable,
+  catchError,
+  concatMap,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { ResourceListItem, ResourceListResponse } from '../interfaces';
@@ -22,14 +31,15 @@ export class PersonsService {
   }
 
   getPersons(): Observable<ResourceListItem[]> {
-    const stream$ = this.persons$.value?.length
-      ? this.persons$
-      : this.http.get<ResourceListResponse>(`${API_URL}/people`).pipe(
-          tap((response) => this.persons$.next(response.results)),
-          map((response) => response.results),
-        );
-
-    return stream$.pipe(
+    return this.persons$.pipe(
+      switchMap((persons) =>
+        persons?.length
+          ? this.persons$.asObservable()
+          : this.http.get<ResourceListResponse>(`${API_URL}/people`).pipe(
+              tap((response) => this.persons$.next(response.results)),
+              map((response) => response.results),
+            ),
+      ),
       catchError((error) => {
         console.error(error);
         return EMPTY;

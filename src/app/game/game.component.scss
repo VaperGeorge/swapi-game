@@ -15,6 +15,7 @@
 .game-card {
   overflow: hidden;
   min-width: 600px;
+  min-height: 400px;
 
   &__actions {
     justify-content: space-evenly;
