@@ -1,1 +1,18 @@
-<p>type-selection works!</p>
+<div class="selection-wrapper">
+  <button
+    class="selection-wrapper__button"
+    mat-flat-button
+    color="accent"
+    (click)="changeResourceType(Resource.PEOPLE)"
+  >
+    <mat-icon>sports_martial_arts</mat-icon> People
+  </button>
+  <button
+    class="selection-wrapper__button"
+    mat-flat-button
+    color="accent"
+    (click)="changeResourceType(Resource.STARSHIPS)"
+  >
+    <mat-icon>rocket_launch</mat-icon> Starships
+  </button>
+</div>

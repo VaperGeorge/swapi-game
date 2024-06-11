@@ -1,12 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
+import { GameStep, ResourceService, StepService, Resource } from '../../shared';
 
 @Component({
   selector: 'app-type-selection',
   standalone: true,
-  imports: [],
+  imports: [MatButtonModule, MatIconModule],
   templateUrl: './type-selection.component.html',
-  styleUrl: './type-selection.component.scss'
+  styleUrl: './type-selection.component.scss',
 })
-export class TypeSelectionComponent {
+export class TypeSelectionComponent implements OnInit {
+  private readonly router = inject(Router);
+  private readonly stepService = inject(StepService);
+  private readonly resourceService = inject(ResourceService);
 
+  Resource = Resource;
+
+  ngOnInit(): void {
+    this.stepService.currentStep = GameStep.SELECTION;
+  }
+
+  changeResourceType(type: Resource): void {
+    this.router.navigate([`${GameStep.GAME}`]);
+    this.resourceService.currentResource = type;
+    this.stepService.currentStep = GameStep.GAME;
+  }
 }
