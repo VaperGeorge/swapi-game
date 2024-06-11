@@ -1,0 +1,9 @@
+.info-card {
+  &__content {
+    margin-top: 25px;
+  }
+
+  &.win-status {
+    background-color: green;
+  }
+}
