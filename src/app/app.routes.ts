@@ -11,7 +11,7 @@ export const routes: Routes = [
     path: `${GameStep.SELECTION}`,
     loadComponent: () =>
       import('./type-selection/type-selection.component').then(
-        (mod) => mod.TypeSelectionComponent
+        (mod) => mod.TypeSelectionComponent,
       ),
   },
   {
@@ -20,4 +20,5 @@ export const routes: Routes = [
       import('./game/game.component').then((mod) => mod.GameComponent),
   },
   { path: '', redirectTo: `${GameStep.START}`, pathMatch: 'full' },
+  { path: '**', redirectTo: `${GameStep.START}`, pathMatch: 'full' },
 ];
