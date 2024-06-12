@@ -53,6 +53,8 @@ export class GameComponent {
   leftStatus = CompareStatus.DRAW;
   rightStatus = CompareStatus.DRAW;
 
+  Resource = Resource;
+
   resourceType$ = this.resourceService.currentResource;
   fetchCards$ = new Subject<void>();
   loading$ = new BehaviorSubject<boolean>(false);

@@ -4,24 +4,31 @@
   }
   @if (result$ | async; as result) {
     <mat-card-header>
-      <mat-card-title>Game result</mat-card-title>
+      <mat-card-title>
+        Comparing
+        {{
+          (resourceType$ | async) === Resource.PEOPLE ? "People" : "Star ships"
+        }}
+      </mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
       <div class="cards-container">
         <div class="cards-container__left">
+          <p>Left Wins: {{ leftWinsCount }}</p>
+
           <app-info-card
             [data]="result[0]"
             [status]="leftStatus"
           ></app-info-card>
-          <p>Left Wins: {{ leftWinsCount }}</p>
         </div>
         <div class="cards-container__right">
+          <p>Right Wins: {{ rightWinsCount }}</p>
+
           <app-info-card
             [data]="result[1]"
             [status]="rightStatus"
           ></app-info-card>
-          <p>Right Wins: {{ rightWinsCount }}</p>
         </div>
       </div>
     </mat-card-content>
