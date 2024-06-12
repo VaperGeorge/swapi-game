@@ -1,20 +1,20 @@
-<mat-card class="game-card">
+<mat-card class="game-card" data-testid="game-card">
   @if (loading$ | async) {
     <ng-container *ngTemplateOutlet="loadingState"></ng-container>
   }
   @if (result$ | async; as result) {
     <mat-card-header>
-      <mat-card-title>
+      <mat-card-title data-testid="game-title">
         Comparing
         {{
-          (resourceType$ | async) === Resource.PEOPLE ? "People" : "Star ships"
+          (resourceType$ | async) === Resource.PEOPLE ? 'People' : 'Star ships'
         }}
       </mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
       <div class="cards-container">
-        <div class="cards-container__left">
+        <div class="cards-container__left" data-testid="left-card">
           <p>Left Wins: {{ leftWinsCount }}</p>
 
           <app-info-card
@@ -22,7 +22,7 @@
             [status]="leftStatus"
           ></app-info-card>
         </div>
-        <div class="cards-container__right">
+        <div class="cards-container__right" data-testid="right-card">
           <p>Right Wins: {{ rightWinsCount }}</p>
 
           <app-info-card
