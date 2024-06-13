@@ -62,7 +62,7 @@ describe('InfoCardComponent', () => {
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
-      fixture.detectChanges(); // Trigger another change detection cycle
+      fixture.detectChanges();
       expect(component.person).toEqual(mockPerson);
       expect(component.starShip).toBeUndefined();
     });
@@ -70,12 +70,11 @@ describe('InfoCardComponent', () => {
 
   it('should set starship data when Resource is STARSHIP', waitForAsync(() => {
     mockResourceService.currentResource?.next(Resource.STARSHIPS);
-    fixture.detectChanges(); // Trigger change detection
+    fixture.detectChanges();
     component.data = mockStarShip;
 
-    // Wait for the change detection to complete
     fixture.whenStable().then(() => {
-      fixture.detectChanges(); // Trigger another change detection cycle
+      fixture.detectChanges();
       expect(component.starShip).toEqual(mockStarShip);
       expect(component.person).toBeUndefined();
     });
@@ -91,9 +90,8 @@ describe('InfoCardComponent', () => {
       mockResourceService.currentResource as BehaviorSubject<Resource>;
     component.data = mockPerson;
 
-    // Wait for the change detection to complete
     fixture.whenStable().then(() => {
-      fixture.detectChanges(); // Trigger another change detection cycle
+      fixture.detectChanges();
 
       expect(Util.matCard.nativeElement).not.toBeNull();
       expect(Util.matCard.nativeElement.textContent).toContain(mockPerson.name);
